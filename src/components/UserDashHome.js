@@ -1,11 +1,19 @@
 import React, { Component } from "react";
+import app from "../firebase"
+let db= app.firestore();
+let gid=localStorage.getItem("id");
+
+
+
+
+let nm=localStorage.getItem("username");
 var today = new Date();
 const Currmonth = today.getMonth();
 const CurrDay = today.getDay();
 const CurrDate = today.getDate();
 const CurrTime = today.getHours();
 
-let Name = "User Name";
+let Name = nm;
 let NumOfUsers = 0;
 let SupportStaff = 0;
 let WebActivity = 63;
