@@ -42,6 +42,7 @@ class UserDashboard extends Component {
   handleLogout = (e) => {
     // logout code
     // redirect to home page
+    localStorage.removeItem("id");
     this.setState({
       isloggedout: true,
     });

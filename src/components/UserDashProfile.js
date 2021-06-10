@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import $ from "jquery";
+import app from "../firebase";
+let db= app.firestore();
+let tempml=localStorage.getItem("id");
 
 let Gfname = "";
 let Glname = "";
 let Gadd = "";
 let Gcontact = "";
-let Gemail = "";
+let Gemail = tempml;
 let Gcity = "";
 let Gstate = "";
 let Gpin = "";
@@ -236,6 +239,23 @@ export class UserDashProfile extends Component {
       Gstate = state;
       Gpin = pin;
       Gfile = file;
+      let temp=db.collection("users").doc(Gemail).update({
+               name: Gfname+" "+Glname,
+            img: Gfile,
+            city: Gcity,
+            address:Gadd,
+            contact:Gcontact,
+            state:Gstate,
+            pincode:Gpin,
+          }).then(() => {
+              console.log("Document successfully written!");
+          })
+          .catch((error) => {
+              console.error("Error writing document: ", error);
+          });
+
+
+
       $("#fname").attr("readonly", true);
       $("#lname").attr("readonly", true);
       $("#address").attr("readonly", true);
