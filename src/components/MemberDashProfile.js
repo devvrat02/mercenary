@@ -1,11 +1,14 @@
 import React, { Component } from "react";
 import $ from "jquery";
+import app from "../firebase";
+let db= app.firestore();
+let tempml=localStorage.getItem("id");
 
 let Gfname = "";
 let Glname = "";
 let Gadd = "";
 let Gcontact = "";
-let Gemail = "";
+let Gemail = tempml;
 let Gcity = "";
 let Gstate = "";
 let Gpin = "";
@@ -343,6 +346,42 @@ class MemberDashProfile extends Component {
       Gfile = file;
       Gpro = pro;
       Gexp = exp;
+      let temp=db.collection("member").doc(Gemail).update({
+        name:"Mr"+ Gfname+" "+Glname,
+        fname:this.state.Gfname,
+        lname:this.state.Glname,
+        img: "",
+        city: Gcity,
+        address:Gadd,
+        contact:Gcontact,
+        email:Gemail,
+        state:Gstate,
+        pincode:Gpin,
+        exp:Gexp,
+   }).then(() => {
+       console.log("Document successfully written!");
+   })
+   .catch((error) => {
+       console.error("Error writing document: ", error);
+   });
+    temp=db.collection("Gpro").doc(Gemail).update({
+      name:"Mr"+ Gfname+" "+Glname,
+      city: Gcity,
+      address:Gadd,
+      contact:Gcontact,
+      email:Gemail,
+      state:Gstate,
+      pincode:Gpin,
+}).then(() => {
+   console.log("Document successfully written!");
+})
+.catch((error) => {
+   console.error("Error writing document: ", error);
+});
+
+
+
+
       this.showNotification("Profile Updated");
       $("#fname").attr("readonly", true);
       $("#lname").attr("readonly", true);

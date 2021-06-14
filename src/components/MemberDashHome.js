@@ -6,7 +6,7 @@ const CurrDay = today.getDay();
 const CurrDate = today.getDate();
 const CurrTime = today.getHours();
 
-let Name = "User Name";
+let Name = localStorage.getItem("username");
 let NumOfUsers = 0;
 let SupportStaff = 0;
 let WebActivity = 63;

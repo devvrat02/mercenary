@@ -1,26 +1,30 @@
 import React, { Component } from "react";
+let gid=localStorage.getItem("id");
+
+
+
 var today = new Date();
 const Currmonth = today.getMonth();
 const CurrDay = today.getDay();
 const CurrDate = today.getDate();
 const CurrTime = today.getHours();
 
-let Name = "User Name";
-let NumOfUsers = 0;
-let SupportStaff = 0;
+// let Name ;
+let NumOfUsers = 5;
+let SupportStaff = "50+";
 let WebActivity = 63;
 let ServicesUsed = 0;
-let SuperCoins = 10;
-let Rewards = 2;
-let Headlines =
-  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
+let SuperCoins = 0;
+let Rewards = 0;
+let Headlines ="Avail three services and get a chance to get extra offers on your upcoming services, have a nice day!";
+  // "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s";
 
 class UserDashHome extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      userName: Name,
+      userName:"", //Name,
       NumOfUsers: NumOfUsers,
       SupportStaff: SupportStaff,
       WebActivity: WebActivity,
@@ -56,6 +60,10 @@ class UserDashHome extends Component {
   }
 
   componentDidMount() {
+    
+    this.setState({
+      userName:localStorage.getItem("username"),
+    }) 
     if (CurrTime >= 0 && CurrTime <= 11) {
       this.setState({
         TimelyWish: "Good Morning",
@@ -96,7 +104,7 @@ class UserDashHome extends Component {
                   {this.state.TimelyWish} 🙳
                 </h1>
                 <h1 className="dashHomeWelcomeBox_name">
-                  Welcome Back{" "}
+                  Welcome {" "}
                   <span className="main-color">{this.state.userName}</span>
                 </h1>
                 <p className="dashHomeWelcomeBox_date">

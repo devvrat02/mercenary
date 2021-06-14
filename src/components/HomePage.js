@@ -46,7 +46,7 @@ class HomePage extends Component {
                     <p className="front-page-data-lead">States covered</p>
                   </div>
                   <div className="text-md-center text-left">
-                    <h1 className="m-0 front-page-data">500+</h1>
+                    <h1 className="m-0 front-page-data">50+</h1>
                     <p className="front-page-data-lead">Members</p>
                   </div>
                   <div>
@@ -188,7 +188,7 @@ class HomePage extends Component {
               <h1 className="footer-head">Contact us</h1>
               <p className="footer-lead footer-links">contact@mercenary.com</p>
               <p className="footer-lead footer-links">(+91)89890-06727</p>
-              <p className="footer-lead footer-links">(+91)89650-86788</p>
+              <p className="footer-lead footer-links">(+91)79870-30482</p>
             </div>
             <div className="col-lg col-md-3 py-md-0 py-3">
               <h1 className="footer-head">Policies</h1>

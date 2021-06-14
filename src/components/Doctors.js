@@ -1,48 +1,60 @@
 import React, { Component } from "react";
 import $ from "jquery";
 import { Link } from "react-router-dom";
-let data = [
-  {
-    id: 1,
-    name: "Name",
-    img: "https://i.pinimg.com/736x/5b/b4/8b/5bb48b07fa6e3840bb3afa2bc821b882.jpg",
-    specialised: "dentist",
-    city: "indore",
-    rating: 4,
-    about:
-      "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
-  },
-  {
-    id: 2,
-    name: "Name",
-    img: "",
-    specialised: "naak kan gala",
-    city: "indore",
-    rating: 2,
-    about:
-      "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
-  },
-  {
-    id: 3,
-    name: "Name",
-    img: "https://i.pinimg.com/736x/5b/b4/8b/5bb48b07fa6e3840bb3afa2bc821b882.jpg",
-    specialised: "dentist",
-    city: "bhopal",
-    rating: 10,
-    about:
-      "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
-  },
-  {
-    id: 4,
-    name: "Name",
-    img: "https://i.pinimg.com/736x/5b/b4/8b/5bb48b07fa6e3840bb3afa2bc821b882.jpg",
-    specialised: "nurse",
-    city: "mumbai",
-    rating: 8,
-    about:
-      "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
-  },
-];
+import app from "../firebase"
+let db= app.firestore();
+
+let data1 =[];
+const query = db.collection('Doctor').get().then((querySnapshot) => {
+querySnapshot.forEach((doc) => {
+      data1.push(doc.data());
+});
+// console.log(data1,"asda");
+});
+
+let data = data1;
+// let data = [
+//   {
+//     id: 1,
+//     name: "Name",
+//     img: "https://i.pinimg.com/736x/5b/b4/8b/5bb48b07fa6e3840bb3afa2bc821b882.jpg",
+//     specialised: "dentist",
+//     city: "indore",
+//     rating: 4,
+//     about:
+//       "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
+//   },
+//   {
+//     id: 2,
+//     name: "Name",
+//     img: "",
+//     specialised: "naak kan gala",
+//     city: "indore",
+//     rating: 2,
+//     about:
+//       "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
+//   },
+//   {
+//     id: 3,
+//     name: "Name",
+//     img: "https://i.pinimg.com/736x/5b/b4/8b/5bb48b07fa6e3840bb3afa2bc821b882.jpg",
+//     specialised: "dentist",
+//     city: "bhopal",
+//     rating: 10,
+//     about:
+//       "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
+//   },
+//   {
+//     id: 4,
+//     name: "Name",
+//     img: "https://i.pinimg.com/736x/5b/b4/8b/5bb48b07fa6e3840bb3afa2bc821b882.jpg",
+//     specialised: "nurse",
+//     city: "mumbai",
+//     rating: 8,
+//     about:
+//       "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
+//   },
+// ];
 
 class Doctors extends Component {
   constructor(props) {
@@ -88,12 +100,13 @@ class Doctors extends Component {
         nameDisplay = person.name;
       }
 
-      if (person.about.length > showChar) {
-        var c = person.about.substr(0, showChar);
-        var display = `${c}...`;
-      } else {
-        display = person.about;
-      }
+       // if (person.about.length > showChar) {
+      //   var c = person.about.substr(0, showChar);
+      //   var display = `${c}...`;
+      // } else {
+      //   display = person.about;
+      // }
+      var display = person.about;
 
       if (person.img.length != 0) {
         var pic = person.img;

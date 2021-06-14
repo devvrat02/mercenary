@@ -41,6 +41,8 @@ class MemberDashboard extends Component {
   handleLogout = (e) => {
     // logout code
     // redirect to home page
+    localStorage.removeItem("id");
+    localStorage.removeItem("username");
     this.setState({
       isloggedout: true,
     });

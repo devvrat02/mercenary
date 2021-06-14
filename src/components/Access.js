@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import $ from "jquery";
+import { auth } from "../firebase"
+import app from "../firebase";
+let db= app.firestore();
 
 class Access extends Component {
   constructor(props) {
@@ -124,6 +127,34 @@ class Access extends Component {
       $("#login-err").html("Invalid Format!!");
     } else {
       // login backend
+   let authref= auth.signInWithEmailAndPassword(this.state.login_id,this.state.login_pw)
+  .then((userCredential) => {
+    // Signed in
+    var user = userCredential.user;
+    console.log("user login: ",this.state.login_id)
+    localStorage.setItem("id", this.state.login_id);
+    
+var docRef = db.collection("users").doc(this.state.login_id);
+
+var getOptions = {
+    source: 'server'
+};
+
+let no=docRef.get(getOptions).then((doc) => {
+    console.log("Server document data:", doc.data());
+    let data=doc.data();
+    console.log(data.name);
+   localStorage.setItem("username",data.name);
+}).catch((error) => {
+    console.log("Error getting cached document:", error);
+});
+    // ...
+  })
+  .catch((error) => {
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log("error: ",this.state.login_id)
+  });
       this.setState(
         {
           isUserLoggedIn: true,
@@ -157,6 +188,38 @@ class Access extends Component {
       $("#mem-login-err").html("Invalid Format!!");
     } else {
       // login backend
+      let authref=auth.signInWithEmailAndPassword(this.state.mem_login_id, this.state.mem_login_pw)
+  .then((userCredential) => {
+    // Signed in
+    var user = userCredential.user;
+    console.log("user login: ",this.state.mem_login_id)
+    localStorage.setItem("id", this.state.mem_login_id);
+        
+var docRef = db.collection("users").doc(this.state.mem_login_id);
+
+var getOptions = {
+    source: 'server'
+};
+
+let no=docRef.get(getOptions).then((doc) => {
+    console.log("Server document data:", doc.data());
+    let data=doc.data();
+    console.log(data.name);
+    let temp ={};
+   localStorage.setItem("username",data.name);
+}).catch((error) => {
+    console.log("Error getting cached document:", error);
+});
+
+   }).then(() => {
+    console.log("Document successfully written!");
+})
+.catch((error) => {
+    console.error("Error writing document: ", error);
+});
+// ..
+    // ...
+ 
       this.setState(
         {
           isMemberLoggedIn: true,
@@ -196,6 +259,23 @@ class Access extends Component {
       $("#err-msg-reg").html("Confirm password should match your password!");
     } else {
       // registration backend code
+      //createUserWithEmailAndPassword(email, password)
+      let authref =auth.createUserWithEmailAndPassword(this.state.reg_id, this.state.reg_pw)
+  .then((userCredential) => {
+    // Signed in 
+    let temp= db.collection("users").doc(this.state.reg_id).set({
+            id: this.state.reg_id ,
+          email:this.state.reg_id
+   })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+   
+    // ..
+  });
       $("#err-msg-reg").show();
       $("#err-msg-reg").html("Registered! You'll be redirected to login page");
       setTimeout(() => {

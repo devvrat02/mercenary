@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import $ from "jquery";
 import { Redirect } from "react-router";
 import { Link } from "react-router-dom";
-
+import { auth } from "../firebase"
+import app from "../firebase";
+let db=app.firestore();
 class MemRegistrationPage extends Component {
   constructor(props) {
     super(props);
@@ -142,6 +144,58 @@ class MemRegistrationPage extends Component {
       this.showNotification("Please Check the terms before Registering");
     } else {
       // registration code
+      let authref =auth.createUserWithEmailAndPassword(this.state.email,"1234")
+  .then((userCredential) => {
+    // Signed in 
+    let temp= db.collection("member").doc(this.state.email).set({
+            id: this.state.email,
+          email:this.state.email,
+          fname:this.state.fname,
+          lname:this.state.lname,
+          address:this.state.address,
+          contact:this.state.contact,
+          city:this.state.city,
+          state:this.state.state,
+          pin:this.state.pin,
+          pro:this.state.pro,
+          exp:this.state.exp,
+
+   })
+        .then(() => {
+            console.log("Document successfully written!");
+        })
+        .catch((error) => {
+            console.error("Error writing document: ", error);
+        });
+        temp= db.collection(this.state.pro).doc(this.state.email).set({
+                      id: this.state.email,
+                      fname:this.state.fname,
+                      lname:this.state.lname,
+                      name: "Mr."+this.state.fname+" "+this.state.lname,
+                      img: "",
+                      city: this.state.city,
+                      rating: 4,
+                      about:
+                      "Im elwknv uwen iuoejwoci joweij oiwdjsoj Im elwknv uwen iuoejwoci joweij oiwdjsoj",
+                      address:this.state.address,
+                      contact:this.state.contact,
+                      email:this.state.email,
+                      state:"M.P",
+                      pincode:this.state.pin,
+                      exp:this.state.exp,
+
+ })
+      .then(() => {
+          console.log("Document successfully written!");
+      })
+      .catch((error) => {
+          console.error("Error writing document: ", error);
+      });
+    // ..
+  });
+
+
+
 
       this.setState({
         isRegistered: true,

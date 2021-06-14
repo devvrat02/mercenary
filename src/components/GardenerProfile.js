@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-
-let name = "Member Name";
+import app from "../firebase"
+import $ from "jquery";
+let db= app.firestore();
+let dt=[];
+let uid=localStorage.getItem("id");
+let name = "";
 let img = "";
 // "https://cdn.discordapp.com/attachments/808954755682140221/848181376717160478/unknown.png";
-let org = "Organisation/ shop name";
-let address = "City, State";
-let pin = "Pin Code";
-let rating = 4;
+let wmail = "";
+let address = "";
+let pin = "";
+let rating ;
+let contact="";
 let images = [
   {
     id: 1,
@@ -39,6 +44,7 @@ let reviews = [
   },
 ];
 
+let lodingdone="No";
 class GardenerProfile extends Component {
   constructor(props) {
     super(props);
@@ -48,6 +54,63 @@ class GardenerProfile extends Component {
     };
   }
 
+  componentDidMount(){
+    this.load_data();
+   console.log(dt,"afsfasf");
+   }
+   
+    load_data=()=>{
+      console.log("functioncall");
+     var docRef =  db.collection("Gardener")
+     .doc(this.state.pageId)
+     .get()
+     .then(function (doc) {
+      dt=doc.data();
+      address=dt.address;
+      // console.log(address,"fsdf");
+      name= dt.name;
+      pin= dt.pincode;
+      rating= dt.rating;
+      contact=dt.contact;
+      wmail=dt.id
+     lodingdone="Yes";
+   
+     })
+     .catch(function (error) {
+       console.log(error);
+     })
+   
+     console.log(dt,"afsfasf");
+     
+   }
+   displayData=()=>{
+   
+       if(lodingdone=="No"){
+         return ( 
+           <h1 className="mem_profile_header_org">Loading...</h1>
+         )
+       }
+       else{
+         return(
+           <>
+           <h1 className="mem_profile_header_name">{name}</h1>
+           <h1 className="mem_profile_header_org">Gardener</h1>
+           <p className="mem_profile_header_address">{address}</p>
+           <p className="mem_profile_header_address"> {pin} </p>
+           </>
+         )
+       }
+     
+   }
+   showNotification = (message) => {
+     const notifContainer = document.getElementById("notifContainer");
+     const notif = document.createElement("div");
+     notif.classList.add("notifBox");
+     notif.innerText = message;
+     notifContainer.appendChild(notif);
+     setTimeout(() => $(notif).addClass("pop"), 10);
+     setTimeout(() => $(notif).removeClass("pop"), 3000);
+   };  
   ShowProfile = () => {
     if (img.length != 0) {
       return img;
@@ -135,11 +198,26 @@ class GardenerProfile extends Component {
   bookService = (e) => {
     e.preventDefault();
     //book service code
+    let bk_str="Appointment: "+ name +" address: "+address+" contact: "+contact+" email: "+wmail;
+    this.showNotification("Serviced Booked, Check your Activities");
+    let temp= db.collection("users").doc(uid).collection("history").doc().set({
+      id: wmail ,
+    messages:bk_str,
+})
+  .then(() => {
+      console.log("Document successfully written!");
+  })
+  .catch((error) => {
+      console.error("Error writing document: ", error);
+  });
+
+
   };
 
   render() {
     return (
       <div className="dashboard_mainDiv">
+          <div id="notifContainer"></div>
         {/* header */}
         <div className="dash_header justify-content-center px-md-5 px-2">
           <img
@@ -160,10 +238,11 @@ class GardenerProfile extends Component {
                 />
               </div>
               <div className="ml-4">
-                <h1 className="mem_profile_header_name">{name}</h1>
-                <h1 className="mem_profile_header_org">{org}</h1>
+              {this.displayData()}
+                {/* <h1 className="mem_profile_header_name">{name}</h1>
+                <h1 className="mem_profile_header_org">Barber</h1>
                 <p className="mem_profile_header_address">{address}</p>
-                <p className="mem_profile_header_address"> {pin} </p>
+                <p className="mem_profile_header_address"> {pin} </p> */}
               </div>
             </div>
             <div className="py-md-0 py-3">
