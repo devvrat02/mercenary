@@ -43,8 +43,11 @@ class UserDashboard extends Component {
     // logout code
     // redirect to home page
     localStorage.removeItem("id");
+<<<<<<< HEAD
     localStorage.removeItem("username");
     
+=======
+>>>>>>> 8164b457685e066b6e225c0b4579850d9aa20fbf
     this.setState({
       isloggedout: true,
     });

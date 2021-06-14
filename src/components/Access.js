@@ -144,6 +144,10 @@ let no=docRef.get(getOptions).then((doc) => {
     console.log("Server document data:", doc.data());
     let data=doc.data();
     console.log(data.name);
+<<<<<<< HEAD
+=======
+    let temp ={};
+>>>>>>> 8164b457685e066b6e225c0b4579850d9aa20fbf
    localStorage.setItem("username",data.name);
 }).catch((error) => {
     console.log("Error getting cached document:", error);

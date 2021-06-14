@@ -9,7 +9,11 @@ const query = db.collection('Barber').get().then((querySnapshot) => {
 querySnapshot.forEach((doc) => {
       data1.push(doc.data());
 });
+<<<<<<< HEAD
 // console.log(data1,"asda");
+=======
+console.log(data1,"asda");
+>>>>>>> 8164b457685e066b6e225c0b4579850d9aa20fbf
 });
 
 let data = data1;

@@ -242,7 +242,11 @@ export class UserDashProfile extends Component {
       Gpin = pin;
       Gfile = file;
       let temp=db.collection("users").doc(Gemail).update({
+<<<<<<< HEAD
             name: Gfname+" "+Glname,
+=======
+               name: Gfname+" "+Glname,
+>>>>>>> 8164b457685e066b6e225c0b4579850d9aa20fbf
             img: Gfile,
             city: Gcity,
             address:Gadd,

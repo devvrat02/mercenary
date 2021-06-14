@@ -1,17 +1,33 @@
 import React, { Component } from "react";
+<<<<<<< HEAD
+=======
+import app from "../firebase"
+let db= app.firestore();
+>>>>>>> 8164b457685e066b6e225c0b4579850d9aa20fbf
 let gid=localStorage.getItem("id");
 
 
 
+<<<<<<< HEAD
+=======
+
+let nm=localStorage.getItem("username");
+>>>>>>> 8164b457685e066b6e225c0b4579850d9aa20fbf
 var today = new Date();
 const Currmonth = today.getMonth();
 const CurrDay = today.getDay();
 const CurrDate = today.getDate();
 const CurrTime = today.getHours();
 
+<<<<<<< HEAD
 // let Name ;
 let NumOfUsers = 5;
 let SupportStaff = "50+";
+=======
+let Name = nm;
+let NumOfUsers = 0;
+let SupportStaff = 0;
+>>>>>>> 8164b457685e066b6e225c0b4579850d9aa20fbf
 let WebActivity = 63;
 let ServicesUsed = 0;
 let SuperCoins = 0;
